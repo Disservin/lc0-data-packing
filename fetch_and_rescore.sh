@@ -5,7 +5,7 @@ set -e
 
 BASE_URL="https://storage.lczero.org/files/training_data/test91/"
 DATA_DIR="./data"
-NNUE_DIR="./nnue"
+BINPACK_DIR="./binpacks"
 SYZYGY_PATH=$1
 RESCORER_BIN="./lc0/build/release/rescorer"
 
@@ -16,7 +16,7 @@ fi
 
 # Create necessary directories
 mkdir -p "$DATA_DIR"
-mkdir -p "$NNUE_DIR"
+mkdir -p "$BINPACK_DIR"
 
 echo "Fetching list of tarballs from $BASE_URL..."
 # Fetch the directory index and parse out the .tar links
@@ -36,7 +36,7 @@ for TARBALL in $TARBALLS; do
     EXTRACT_PATH="${DATA_DIR}/${NAME}"
     
     # Check if the binpack already exists to allow resuming
-    if [ -f "${NNUE_DIR}/${NAME}.binpack" ]; then
+    if [ -f "${BINPACK_DIR}/${NAME}.binpack" ]; then
         echo "Binpack ${NAME}.binpack already exists, skipping..."
         continue
     fi
@@ -51,7 +51,7 @@ for TARBALL in $TARBALLS; do
     "$RESCORER_BIN" rescore \
         --syzygy-paths="$SYZYGY_PATH" \
         --input="$EXTRACT_PATH" \
-        --binpack-file="${NNUE_DIR}/${NAME}.binpack" \
+        --binpack-file="${BINPACK_DIR}/${NAME}.binpack" \
         --nnue-best-score=true \
         --nnue-best-move=true \
         --deblunder=true \
