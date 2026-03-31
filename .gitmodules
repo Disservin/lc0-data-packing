@@ -1,0 +1,6 @@
+[submodule "binpack-rust"]
+	path = binpack-rust
+	url = https://github.com/Disservin/binpack-rust.git
+[submodule "lc0"]
+	path = lc0
+	url = git@github.com:xu-shawn/lc0.git
